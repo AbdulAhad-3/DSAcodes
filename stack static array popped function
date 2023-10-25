@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class Stack {
+private:
+    int size;
+    int stack[10];
+    int top;
+
+public:
+    Stack() {
+        size = 10;
+        top = -1;
+    }
+
+    bool isFull() {
+        return top == size - 1;
+    }
+
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    void push(int value) {
+        if (isFull()) {
+            cout << "Stack overflow!" <<endl;
+            return;
+        }
+        stack[++top] = value;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            cout << "Stack underflow!" <<endl;
+            return -1;
+        }
+        return stack[top--];
+    }
+
+    void displayStack() {
+        cout << "Stack elements: ";
+        for (int i = 0; i <= top; i++) {
+            cout << stack[i] << " ";
+        }
+        cout <<endl;
+    }
+};
+
+int main() {
+    Stack stack;
+    int numElements, sum = 0;
+
+    for (int i = 0; i < 10; i++) {
+        int value;
+        cout << "Enter a value to push onto the stack: "<<endl;
+        cin >> value;
+        stack.push(value);
+    }
+
+    cout << "Enter the number of elements to pop from the stack: "<<endl;
+    cin >> numElements;
+
+    if (numElements > 10)
+        numElements = 10;
+
+    stack.displayStack(); // Display the stack after pushing
+
+    cout << "Popped elements: "<<endl;
+    for (int i = 0; i < numElements; i++) {
+        int popped = stack.pop();
+        if (popped != -1) {
+            std::cout << popped << " ";
+            sum += popped;
+        }
+    }
+    cout <<endl;
+
+    if (numElements > 0) {
+        double average = static_cast<double>(sum) / numElements;
+        cout << "Average of popped elements: " << average <<endl;
+    } else {
+        cout << "No elements were popped to calculate the average." <<endl;
+    }
+
+    return 0;
+}
